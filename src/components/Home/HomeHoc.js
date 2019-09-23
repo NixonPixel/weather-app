@@ -1,14 +1,16 @@
 import {connect} from 'react-redux'
 import {compose} from 'recompose'
-import { getCurrentWeather, getFiveDayForecast, findCity } from '../../actions/actions'
+import { getCurrentWeather, getFiveDayForecast, findCity, removeCityFromList } from '../../actions/actions'
 import {cityPush} from '../../actions/actionCreators'
+import classes from './styles'
 
 const mapDispathToProps = (dispatch) => {
     return {
         getCurrentWeather: (name) => getCurrentWeather(dispatch, name),
         getFiveDayForecast: (id) => getFiveDayForecast(dispatch, id),
         findCity: (name, cityList) => findCity(dispatch, name, cityList),
-        cityPush: (cityList) =>  dispatch(cityPush(cityList))
+        cityPush: (cityList) =>  dispatch(cityPush(cityList)),
+        removeCity: (idx) => removeCityFromList(dispatch, idx)
     }
 }
 
@@ -18,4 +20,4 @@ const mapStateToProps = ({ currentWeather, fiveDaysForecast, cityList}) => {
     }
 }
 
-export default compose(connect(mapStateToProps, mapDispathToProps))
+export default compose(connect(mapStateToProps, mapDispathToProps), classes)
